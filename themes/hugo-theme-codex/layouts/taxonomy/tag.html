@@ -16,7 +16,7 @@
         <div class="post__header">
           <time class="post__date" datetime="{{ .Date }}">{{ .Date.Format $dateFormat }}</time>
           <h2 class="post__title">
-            <a href="{{.RelPermalink}}">{{ .Title }}</a>
+            <a href={{ .Params.link }} target="_blank">{{ .Title }}</a>
           </h2>
         </div>
       </li>
