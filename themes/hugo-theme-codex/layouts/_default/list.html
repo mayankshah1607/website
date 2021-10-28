@@ -14,7 +14,11 @@
         <time class="post__date" datetime="{{ .Date }}"
           >{{ .Date.Format $dateFormat }}</time>
         <h2 class="post__title">
-          <a href={{ .Params.link }} target="_blank">{{ .Title }}</a>
+          {{ if isset .Params "link"  }}
+            <a href={{ .Params.link }} target="_blank">{{ .Title }}</a>
+          {{ else }}
+            <a href="{{.RelPermalink}}">{{ .Title }}</a>
+          {{ end }}
         </h2>
         {{ partial "tags.html" .}}
       </div>
