@@ -14,7 +14,7 @@ copyright = "© {year}"
 # disqusShortname = "Mayank"
 
 # Add your Google Analytics identifier: UA-XXXXXXXX-X
-# googleAnalytics = "" 
+googleAnalytics = "UA-211456494-1" 
 
 
 # Optional params

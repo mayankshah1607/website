@@ -7,5 +7,5 @@ draft: false
 tags: ["kubernetes", "distributed systems"]
 math: false
 toc: true
-# link: https://medium.com/@mayankshah1607/leader-election-in-kubernetes-using-client-go-a19cbe7a9a85
+link: https://medium.com/@mayankshah1607/leader-election-in-kubernetes-using-client-go-a19cbe7a9a85
 ---
