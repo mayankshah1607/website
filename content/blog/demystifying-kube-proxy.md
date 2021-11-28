@@ -84,7 +84,7 @@ IPVS (which stands for _IP Virtual Server_) was introduced to tackle such challe
 
 ## kube-proxy
 
-`kube-proxy` runs on each node of a Kubernetes cluster. It watches `Service` and `Endpoint` (and `EndpointSlice`) objects and accordingly updates the routing rules on its host nodes to allow communicating over Services. `kube-proxy` has two 4 modes of execution - `iptables`, `ipvs`, `userspace` and `kernelspace`. The default mode (as of writing this blog post) is `iptables`, and somewhat tricker to understand compared to the rest. Lets understand this mode using a simple example.
+`kube-proxy` runs on each node of a Kubernetes cluster. It watches `Service` and `Endpoint` (and `EndpointSlice`) objects and accordingly updates the routing rules on its host nodes to allow communicating over Services. `kube-proxy` has 4 modes of execution - `iptables`, `ipvs`, `userspace` and `kernelspace`. The default mode (as of writing this blog post) is `iptables`, and somewhat tricker to understand compared to the rest. Lets understand this mode using a simple example.
 
 Assume that you have a Kubernetes cluster with 2 nodes, each running `kube-proxy` in the `iptables` mode. Also assume that this cluster has 2 Pods, _Pod A_ (the client) and _Pod B_ (the server), each with its own unique IP address (thanks CNI plugin!), running on either nodes. The figure below (Figure 4) illustrates our imaginary environment.
 
