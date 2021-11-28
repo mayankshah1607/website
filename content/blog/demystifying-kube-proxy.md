@@ -1,6 +1,6 @@
 ---
 title: "Demystifying kube-proxy"
-date: 2021-11-28T09:19:29-04:00
+date: 2021-11-27T09:19:29-04:00
 description: "This blog post explains how the kube-proxy component of Kubernetes works internally. It goes through various laters of networking abstractions in a top-down approach, ultimately leading to kube-proxy."
 keywords: ["kubernetes", "networking"]
 draft: false
