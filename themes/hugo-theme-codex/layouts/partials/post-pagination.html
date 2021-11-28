@@ -1,13 +1,21 @@
 <div class="pagination">
   {{if .PrevInSection}}
+    {{ if isset .PrevInSection.Params "link"  }}
+    <a target="_blank" class="pagination__item" href="{{.PrevInSection.Params.link}}">
+    {{ else }}
     <a class="pagination__item" href="{{.PrevInSection.Permalink}}">
+    {{ end }}
         <span class="pagination__label">{{ i18n "prev_post" }}</span>
         <span class="pagination__title">{{.PrevInSection.Title}}</span>
     </a>
   {{end}}
 
   {{if .NextInSection}}
-    <a class="pagination__item" href="{{.NextInSection.Permalink}}">
+  {{ if isset .NextInSection.Params "link"  }}
+  <a target="_blank" class="pagination__item" href="{{.NextInSection.Params.link}}">
+  {{ else }}
+  <a class="pagination__item" href="{{.NextInSection.Permalink}}">
+  {{ end }}
       <span class="pagination__label">{{ i18n "next_post" }}</span>
       <span class="pagination__title" >{{.NextInSection.Title}}</span>
     </a>
