@@ -50,7 +50,7 @@ Kubernetes Service objects allow you to assign a single virtual IP address to a 
 
 With this, the client can now use the Service IP address instead of relying on the individual IP addresses of the underlying Pods.
 
-![](https://i.imgur.com/0OpHnYU.png "Figure 2. Services in Kubernetes. Please note that in a real-life Kubernetes cluster, Pod and Service CIDRs do not share the same range.")
+![](https://i.imgur.com/0OpHnYU.png "Figure 2. Services in Kubernetes. Please note that in real-life Kubernetes, Pods and Services cannot have overlapping CIDR blocks.")
 
 > _Pods can also use internally available DNS names instead of Service IP addresses. This DNS system is powered by [CoreDNS](https://coredns.io/)._
 ### Endpoints
@@ -94,7 +94,7 @@ Assume that you have a Kubernetes cluster with 2 nodes, each running `kube-proxy
 
 So far there's no involvement from `kube-proxy` as _Pod A_ can directly talk to _Pod B_ using the assigned IP address. Let us now expose _Pod B_ over a `Service` (we'll call it _Service B_) as shown in _Figure 5_.
 
-![](https://i.imgur.com/XZjxAi4.png "Figure 5. Exposing Pod B using a Service. Please note that in a real-life Kubernetes cluster, Pod and Service CIDRs do not share the same range.")
+![](https://i.imgur.com/XZjxAi4.png "Figure 5. Exposing Pod B using a Service. Please note that in real-life Kubernetes, Pods and Services cannot have overlapping CIDR blocks.")
 
 This is where things get interesting. _Pod A_ can now reach _Pod B_ at its Service IP address (i.e, 10.0.1.3 in this example), regardless of the state and IP address of the underlying Pod. To understand how `kube-proxy` handles this for us, we'll analyse the lifecycle of a packet in two parts: _Pod to Service_ (client to server) and _Service to Pod_ (server to client).
 
