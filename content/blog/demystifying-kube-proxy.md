@@ -102,7 +102,7 @@ This is where things get interesting. _Pod A_ can now reach _Pod B_ at its Servi
 
 When we created _Service B_, the first thing that happened was the creation of a corresponding _Endpoints_ object that stores a list of Pod IP addresses to forward traffic to. 
 
-Once the `Endpoints` objects was updated with the correct IP address of the Pod, all _kube-proxies_ updated the _iptables_ on their host nodes with a new rule. I won't dive into the technical details of this new iptables rule, but here's how it translates in English - _"All outgoing packets to 10.0.1.3 (IP address of Service B), should instead go to 10.0.1.2 (IP addresss of Pod B, as obtained from the Endpoints)"._
+Once the `Endpoints` object was updated with the correct IP address of the Pod, all _kube-proxies_ updated the _iptables_ on their host nodes with a new rule. I won't dive into the technical details of this new iptables rule, but here's how it translates in English - _"All outgoing packets to 10.0.1.3 (IP address of Service B), should instead go to 10.0.1.2 (IP addresss of Pod B, as obtained from the Endpoints)"._
 
 ![](https://i.imgur.com/aCFA30P.png "Figure 6. The packet originating from Pod A has its destination IP addresss re-written with the help of iptables")
 
