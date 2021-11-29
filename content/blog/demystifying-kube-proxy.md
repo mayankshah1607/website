@@ -130,7 +130,7 @@ And that's pretty much how `kube-proxy` works in the iptables mode!
 
 While it may look like magic from the outside, the mechanisms used by Kubernetes to handle compex networking tasks are rather interesting to learn. Networking is a field that is just as complex as it is deep, and covering every concept in a single blog post would be nearly impossible. I plan on writing about other areas of networking in Kubernetes, in the near future. These topics will include CNI, DNS, Ingress and hopefully a lot more.
 
-Thank you so much for taking the time to read this post. If you found it helpful, please do consider sharing it with your friends and colleagues. Feedback and (constrictive) critisism is also always more than welcome.
+Thank you so much for taking the time to read this post. If you found it helpful, please do consider sharing it with your friends and colleagues. Feedback and (constructive) critisism is also always more than welcome.
 
 ## Extra reading
 
