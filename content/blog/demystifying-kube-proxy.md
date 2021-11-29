@@ -57,13 +57,13 @@ With this, the client can now use the Service IP address instead of relying on t
 
 We now know that Services proxy and load-balance incoming traffic to the desired Pod(s). But how do Services know which Pods to track, and which Pods are ready to accept traffic? The answer is _Endpoints_.
 
-Endpoints have a 1:1 relationship with Services, and are created for keeping track of IP addresses of running Pods their corresponding Services are proxying for. They're always kept in sync with the state and IP addresses of their target Pods. You can think of Endpoints as a lookup table for Services to fetch the target IP addresses of Pods.
+`Endpoints` objects have a 1:1 relationship with Services, and are created for keeping track of IP addresses of running Pods their corresponding Services are proxying for. They're always kept in sync with the state and IP addresses of their target Pods. You can think of Endpoints as a lookup table for Services to fetch the target IP addresses of Pods.
 
 ![](https://i.imgur.com/Wf6tVO4.png "Figure 3. Extending figure 2 to demonstrate Endpoints in Kubernetes")
 
 In the example above (Figure 3), _Pod B3_ is in an unready state and that information is reflected onto its parent Endpoint object. That's how _Service B_ knows **not to** send any traffic to _Pod B3_.
 
-> _It might be interesting to note that `Endpoint`s do not scale well with the size of the cluster and the number of Services running on it. `EndpointSlice`s were introduced to tackle issues around scalability with `Endpoint`s. Read more about it [here](https://kubernetes.io/docs/concepts/Services-networking/Endpoint-slices/)._
+> _It might be interesting to note that `Endpoints` do not scale well with the size of the cluster and the number of Services running on it. `EndpointSlices` were introduced to tackle issues around scalability with `Endpoints`. Read more about it [here](https://kubernetes.io/docs/concepts/Services-networking/Endpoint-slices/)._
 
 In a moment you'll see how Endpoints and Services are relevant to `kube-proxy`. But before that, let's quickly brush through the basics of some Linux networking features that `kube-proxy` heavily relies on.
 
@@ -84,7 +84,7 @@ IPVS (which stands for _IP Virtual Server_) was introduced to tackle such challe
 
 ## kube-proxy
 
-`kube-proxy` runs on each node of a Kubernetes cluster. It watches `Service` and `Endpoint` (and `EndpointSlice`) objects and accordingly updates the routing rules on its host nodes to allow communicating over Services. `kube-proxy` has 4 modes of execution - `iptables`, `ipvs`, `userspace` and `kernelspace`. The default mode (as of writing this blog post) is `iptables`, and somewhat tricker to understand compared to the rest. Lets understand this mode using a simple example.
+`kube-proxy` runs on each node of a Kubernetes cluster. It watches `Service` and `Endpoints` (and `EndpointSlices`) objects and accordingly updates the routing rules on its host nodes to allow communicating over Services. `kube-proxy` has 4 modes of execution - `iptables`, `ipvs`, `userspace` and `kernelspace`. The default mode (as of writing this blog post) is `iptables`, and somewhat tricker to understand compared to the rest. Lets understand this mode using a simple example.
 
 Assume that you have a Kubernetes cluster with 2 nodes, each running `kube-proxy` in the `iptables` mode. Also assume that this cluster has 2 Pods, _Pod A_ (the client) and _Pod B_ (the server), each with its own unique IP address (thanks CNI plugin!), running on either nodes. The figure below (Figure 4) illustrates our imaginary environment.
 
@@ -100,9 +100,9 @@ This is where things get interesting. _Pod A_ can now reach _Pod B_ at its Servi
 
 ### Pod to Service
 
-When we created _Service B_, the first thing that happened was the creation of a corresponding _Endpoint_ object that stores a list of Pod IP addresses to forward traffic to. 
+When we created _Service B_, the first thing that happened was the creation of a corresponding _Endpoints_ object that stores a list of Pod IP addresses to forward traffic to. 
 
-Once the Endpoint was updated with the correct IP address of the Pod, all _kube-proxies_ updated the _iptables_ on their host nodes with a new rule. I won't dive into the technical details of this new iptables rule, but here's how it translates in English - _"All outgoing packets to 10.0.1.3 (IP address of Service B), should instead go to 10.0.1.2 (IP addresss of Pod B, as obtained from the Endpoint object)"._
+Once the `Endpoints` objects was updated with the correct IP address of the Pod, all _kube-proxies_ updated the _iptables_ on their host nodes with a new rule. I won't dive into the technical details of this new iptables rule, but here's how it translates in English - _"All outgoing packets to 10.0.1.3 (IP address of Service B), should instead go to 10.0.1.2 (IP addresss of Pod B, as obtained from the Endpoints)"._
 
 ![](https://i.imgur.com/aCFA30P.png "Figure 6. The packet originating from Pod A has its destination IP addresss re-written with the help of iptables")
 
