@@ -55,7 +55,7 @@ With this, the client can now use the Service IP address instead of relying on t
 > _Pods can also use internally available DNS names instead of Service IP addresses. This DNS system is powered by [CoreDNS](https://coredns.io/)._
 ### Endpoints
 
-We now know that Services proxy and load-balance incoming traffic to the desired Pod(s). But how do Services know which Pods to track, and which Pods are ready to accept traffic? The answer is _Endpoints_.
+We now know that Services proxy and load-balance incoming traffic to the desired Pod(s). But how do Services know which Pods to track, and which Pods are ready to accept traffic? The answer is `Endpoints`.
 
 `Endpoints` objects have a 1:1 relationship with Services, and are created for keeping track of IP addresses of running Pods their corresponding Services are proxying for. They're always kept in sync with the state and IP addresses of their target Pods. You can think of Endpoints as a lookup table for Services to fetch the target IP addresses of Pods.
 
@@ -100,7 +100,7 @@ This is where things get interesting. _Pod A_ can now reach _Pod B_ at its Servi
 
 ### Pod to Service
 
-When we created _Service B_, the first thing that happened was the creation of a corresponding _Endpoints_ object that stores a list of Pod IP addresses to forward traffic to. 
+When we created _Service B_, the first thing that happened was the creation of a corresponding `Endpoints` object that stores a list of Pod IP addresses to forward traffic to. 
 
 Once the `Endpoints` object was updated with the correct IP address of the Pod, all _kube-proxies_ updated the _iptables_ on their host nodes with a new rule. I won't dive into the technical details of this new iptables rule, but here's how it translates in English - _"All outgoing packets to 10.0.1.3 (IP address of Service B), should instead go to 10.0.1.2 (IP addresss of Pod B, as obtained from the Endpoints)"._
 
