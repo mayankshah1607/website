@@ -32,7 +32,7 @@ Let us first try to understand how two Pods can communicate in a Kubernetes clus
 
 For any two Pods to talk to each other, they need to be assigned _unique_ IP addresses. These IP addresses have to be unique across the cluster. Pods should be able to reach each other using these IP addresses, without relying on _network address translation_, regardless of the host they're running on. 
 
-"How does Kubernetes do that?", I hear you ask. Well, it _kind of_ doesn't. There are a hundred different ways of achieving this, each with a different use-case in mind. And Kubernetes can't possibly implement each of these networking solutions natively. Instead, Kubernetes dictates some networking requirements (as we saw earlier), and it is the responsobility of _CNI_ (plugins) to ensure that these requirements are met.
+"How does Kubernetes do that?", I hear you ask. Well, it _kind of_ doesn't. There are a hundred different ways of achieving this, each with a different use-case in mind. And Kubernetes can't possibly implement each of these networking solutions natively. Instead, Kubernetes dictates some networking requirements (as we saw earlier), and it is the responsibility of _CNI_ (plugins) to ensure that these requirements are met.
 
 Some CNI plugins do a lot more than just ensuring Pods have IP addresses and that they can talk to each other. I'm not going to explain CNI in depth because it is another vast topic in itself, and I won't do justice by trying to explain it in a single paragraph. But the crucial thing to remember here is that CNI ensures that Pods have [L3 connectivity](https://osi-model.com/network-layer/) without relying on NAT.
 
