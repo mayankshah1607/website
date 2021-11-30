@@ -116,7 +116,7 @@ Now that _Pod B_ successfully receives the request from _Pod A_ (via _Service B_
 
 _Pod A_ would expect a response only from the IP address it intended to send the packet to, i.e, _Service B_. In this case however, _Pod A_ receives a response from _Pod B's_ IP address. As a result, _Pod A_ is going to drop this packet.
 
-To solve this problem, _kube-proxies_ write yet another iptables rule on their host node.  I won't get into the technical details of this iptables rule, but in English, it would translate to - _"If you (iptables / Linux kernel) re-wrote the destination IP address of outgoing packets (to that of the Service), **please** remember to also re-write the source IP address (to that of the _Service_) for incoming response packets. Thanks!"_
+To solve this problem, _kube-proxies_ write yet another iptables rule on their host node.  I won't get into the technical details of this iptables rule, but in English, it would translate to - _"If you (iptables / Linux kernel) re-wrote the destination IP address of outgoing packets (to that of the Pod), **please** remember to also re-write the source IP address (to that of the _Service_) for incoming response packets. Thanks!"_
 
 > _iptables use a Linux feature called _conntrack_ to remember the routing choices it previously made. That's how iptables remember to re-write the source IP address of incoming packets._
 
