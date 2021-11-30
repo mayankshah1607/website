@@ -120,7 +120,7 @@ To solve this problem, _kube-proxies_ write yet another iptables rule on their h
 
 > _iptables use a Linux feature called _conntrack_ to remember the routing choices it previously made. That's how iptables remember to re-write the source IP address of incoming packets._
 
-![](https://i.imgur.com/qcHzFNw.png "Figure 7. The packet arriving from Pod B has its source IP address modified, so that Pod A doesn't freak out")
+![](https://i.imgur.com/XUscerq.png "Figure 7. The packet arriving from Pod B has its source IP address modified, so that Pod A doesn't freak out")
 
 > _The process of changing the source IP address of a packet is commonly referred to as SNAT (stands for Source Network Address Translation)._
 
