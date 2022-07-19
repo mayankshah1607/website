@@ -9,9 +9,9 @@
 
     <h1>{{ .Params.heading }}<span class="fancy">.</span></h1>
     {{ if isset .Params "handle" }}
-    <span class="handle">@{{ .Params.handle }}</span>
+    <span class="handle">{{ .Params.handle }}</span>
     {{ end }}
-    <h2 style="font-size: 1.1em; color: #585858; font-weight:normal">
+    <h2 style="font-size: 1.1em; color: #585858; font-weight:normal;">
       {{ .Params.subheading }}
     </h2>
     <!-- Replace MEEEEE -->
